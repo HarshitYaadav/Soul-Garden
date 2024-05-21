@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background: #212121; /* Custom gradient background */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            display: flex; /* Use flexbox */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            position: relative; /* Set position to relative */
+            overflow: hidden; /* Hide overflow */
+        }
+
+        .model-view-css-fix {
+            object-fit: contain;
+            padding-top: 20dp;
+        }
+
+        model-viewer {
+            width: 100vh; /* Default width */
+            height: 100vh; /* Default height */
+        }
+
+        .model-viewer-custom {
+            width: 50vh; /* Custom width */
+            height: 120vh; /* Custom height */
+            position: relative; /* Set position to relative */
+            top: 0vh;
+        }
+
+    </style>
+</head>
+
+<body>
+    <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
+    <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
+    <model-viewer id="reveal" loading="eager" camera-controls autoplay ar-status="not-presenting" src="daisy1a.glb"
+        alt="Bold [3D]" interaction-prompt="none" class="model-viewer" camera-orbit="75deg 85deg" tone-mapping="neutral">
+    </model-viewer>
+
+    <script>
+        setTimeout(() => {
+            const modelViewer = document.querySelector('#reveal');
+            modelViewer.src = 'daisy1.glb'; // Change the GLB source after 8 seconds
+            modelViewer.classList.remove('model-viewer-custom'); // Remove custom class
+        }, 7500);
+    </script>
+</body>
+
+</html>
