@@ -4,33 +4,21 @@
 <head>
     <style>
         body {
-            background: #212121; /* Custom gradient background */
+            background: #212121; /* Custom background color */
             margin: 0; /* Remove default margin */
             padding: 0; /* Remove default padding */
-            display: flex; /* Use flexbox */
+            display: flex; /* Use flexbox for alignment */
             justify-content: center; /* Center horizontally */
             align-items: center; /* Center vertically */
-            position: relative; /* Set position to relative */
-            overflow: hidden; /* Hide overflow */
+            height: 100vh; /* Full viewport height */
         }
-
-        .model-view-css-fix {
-            object-fit: contain;
-            padding-top: 20dp;
-        }
-
+        
         model-viewer {
-            width: 100vh; /* Default width */
-            height: 100vh; /* Default height */
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            max-width: 100vw; /* Ensure it does not exceed viewport width */
+            max-height: 100vh; /* Ensure it does not exceed viewport height */
         }
-
-        .model-viewer-custom {
-            width: 50vh; /* Custom width */
-            height: 120vh; /* Custom height */
-            position: relative; /* Set position to relative */
-            top: 0vh;
-        }
-
     </style>
 </head>
 
@@ -38,21 +26,15 @@
     <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
     <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
     <model-viewer id="reveal" loading="eager" camera-controls autoplay ar-status="not-presenting" src="mystbloom1a.glb"
-        alt="Bold [3D]" interaction-prompt="none" class="model-viewer" camera-orbit="75deg 85deg" tone-mapping="neutral">
+        alt="Bold [3D]" interaction-prompt="none" camera-orbit="75deg 85deg" tone-mapping="neutral">
     </model-viewer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const ModelViewerElement = customElements.get('model-viewer');
-            ModelViewerElement.minimumRenderScale = 1; // Set minimum render scale
-
+        setTimeout(() => {
             const modelViewer = document.querySelector('#reveal');
-            setTimeout(() => {
-                modelViewer.src = 'mystbloom1.glb'; // Change the GLB source after 8 seconds
-                modelViewer.setAttribute('camera-orbit', '90deg 85deg'); // Update camera orbit
-                modelViewer.classList.remove('model-viewer-custom'); // Remove custom class
-            }, 8500);
-        });
+            modelViewer.src = 'mystbloom1.glb'; // Change the GLB source after 8.5 seconds
+            modelViewer.setAttribute('camera-orbit', '90deg 85deg'); // Change camera orbit
+        }, 8500);
     </script>
 </body>
 
