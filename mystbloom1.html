@@ -35,7 +35,22 @@
             modelViewer.src = 'mystbloom1.glb'; // Change the GLB source after 8.5 seconds
             modelViewer.setAttribute('camera-orbit', '90deg 85deg'); // Change camera orbit
         }, 8500);
+
+   const modelViewer = document.querySelector('#reveal');
+        let originalCameraOrbit = modelViewer.getAttribute('camera-orbit');
+        
+        let zoomTimeout;
+
+        modelViewer.addEventListener('camera-change', () => {
+            if (zoomTimeout) clearTimeout(zoomTimeout);
+            
+            zoomTimeout = setTimeout(() => {
+                modelViewer.setAttribute('camera-orbit', originalCameraOrbit);
+            }, 7000);
+        });
     </script>
 </body>
+
+</html>
 
 </html>
