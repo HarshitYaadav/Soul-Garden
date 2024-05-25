@@ -48,6 +48,19 @@
             modelViewer.classList.remove('model-viewer-custom'); // Remove custom class
         }, 7500);
     </script>
+ const modelViewer = document.querySelector('#reveal');
+        let originalCameraOrbit = modelViewer.getAttribute('camera-orbit');
+        
+        let zoomTimeout;
+
+        modelViewer.addEventListener('camera-change', () => {
+            if (zoomTimeout) clearTimeout(zoomTimeout);
+            
+            zoomTimeout = setTimeout(() => {
+                modelViewer.setAttribute('camera-orbit', originalCameraOrbit);
+            }, 7000);
+        });
+    </script>
 </body>
 
 </html>
