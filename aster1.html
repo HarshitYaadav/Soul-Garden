@@ -34,19 +34,12 @@
             top: 0vh;
         }
 
-        #loading-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            font-size: 24px; /* Adjust font size as needed */
-        }
+       
     </style>
 </head>
 
 <body>
-    <div id="loading-message">Loading environment...</div>
+    <!-- Removed loading text -->
     <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
     <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
     <model-viewer id="reveal" loading="eager" camera-controls autoplay ar-status="not-presenting" src="aster1a.glb"
@@ -54,19 +47,7 @@
     </model-viewer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Show loading message immediately
-            document.getElementById("loading-message").style.display = "block";
-
-            // Wait for the model to load
-            document.querySelector("model-viewer").addEventListener("load", function() {
-                // Hide loading message when the model finishes loading
-                document.getElementById("loading-message").style.display = "none";
-                // Display the 3D model container
-                document.querySelector("model-viewer").style.display = "block";
-            });
-        });
-
+        // Remove initial loading text logic
         setTimeout(() => {
             const modelViewer = document.querySelector('#reveal');
             modelViewer.src = 'aster1.glb'; // Change the GLB source after 8 seconds
