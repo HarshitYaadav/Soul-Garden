@@ -12,12 +12,23 @@
             align-items: center; /* Center vertically */
             height: 100vh; /* Full viewport height */
         }
-        
+
         model-viewer {
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             max-width: 100vw; /* Ensure it does not exceed viewport width */
             max-height: 100vh; /* Ensure it does not exceed viewport height */
+            transform: scale(1.4); /* Start at 140% scale */
+            animation: zoomOut 6s ease forwards; /* Apply zoom-out animation */
+        }
+
+        @keyframes zoomOut {
+            0% {
+                transform: scale(1.4); /* Initial state */
+            }
+            100% {
+                transform: scale(1); /* Final state */
+            }
         }
     </style>
 </head>
@@ -30,20 +41,62 @@
     </model-viewer>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modelViewer = document.getElementById("reveal");
+
+            // Apply zoom out effect
+            setTimeout(() => {
+                modelViewer.style.animation = 'zoomOut 6s ease forwards';
+
+                // Simulate swipe effect after zoom-out animation completes
+                setTimeout(() => {
+                    simulateSwipe(modelViewer);
+                }, 6000); // Start swipe effect after zoom-out animation completes (6 seconds)
+            }, 1000); // Start zoom out effect after 1 second
+        });
+
+        function simulateSwipe(element) {
+            const touchStart = new TouchEvent('touchstart', {
+                touches: [new Touch({ identifier: 0, target: element, clientX: 50, clientY: window.innerHeight / 2 })],
+                bubbles: true,
+                cancelable: true
+            });
+
+            const touchMove = new TouchEvent('touchmove', {
+                touches: [new Touch({ identifier: 0, target: element, clientX: window.innerWidth - 50, clientY: window.innerHeight / 2 })],
+                bubbles: true,
+                cancelable: true
+            });
+
+            const touchEnd = new TouchEvent('touchend', {
+                touches: [],
+                bubbles: true,
+                cancelable: true
+            });
+
+            element.dispatchEvent(touchStart);
+            setTimeout(() => {
+                element.dispatchEvent(touchMove);
+                setTimeout(() => {
+                    element.dispatchEvent(touchEnd);
+                }, 500); // Duration of the swipe move
+            }, 500); // Delay before swipe move starts
+        }
+
         setTimeout(() => {
             const modelViewer = document.querySelector('#reveal');
             modelViewer.src = 'tropicalila1.glb'; // Change the GLB source after 8.5 seconds
             modelViewer.setAttribute('camera-orbit', '90deg 85deg'); // Change camera orbit
-        }, 7000);
-        
+        }, 6500);
+
         const modelViewer = document.querySelector('#reveal');
         let originalCameraOrbit = modelViewer.getAttribute('camera-orbit');
-        
+
         let zoomTimeout;
 
         modelViewer.addEventListener('camera-change', () => {
             if (zoomTimeout) clearTimeout(zoomTimeout);
-            
+
             zoomTimeout = setTimeout(() => {
                 modelViewer.setAttribute('camera-orbit', originalCameraOrbit);
             }, 7000);
